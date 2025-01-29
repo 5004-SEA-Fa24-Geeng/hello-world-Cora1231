@@ -150,9 +150,9 @@ public class Greeting {
      */
     public String getFormatStr(boolean asciiOnly) {
         if (asciiOnly) {
-            return String.format(formatStr, asciiGreeting,"%s");
+            return String.format(formatStr, asciiGreeting, "%s");
         } else {
-            return String.format(formatStr, unicodeGreeting,"%s");
+            return String.format(formatStr, unicodeGreeting, "%s");
         }
     }
 
