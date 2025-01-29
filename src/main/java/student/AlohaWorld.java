@@ -36,7 +36,6 @@ public final class AlohaWorld {
 
     /**
      * This is the main method. It is the entry point of the program.
-     *
      * static means it can be called without creating an "instance" (object) of the class. As such
      * static is similar to a function in python.
      *
@@ -49,7 +48,7 @@ public final class AlohaWorld {
         Greeter greeter = new Greeter(name, locality);
         ConsoleView.printGreeting(greeter.greet());
 
-        while (!ConsoleView.checkRunAgain()) {
+        while (ConsoleView.checkRunAgain()) {
             locality = ConsoleView.getLocality();
             greeter.setLocality(locality);
             ConsoleView.printGreeting(greeter.greet());

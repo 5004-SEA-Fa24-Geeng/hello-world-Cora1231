@@ -1,114 +1,91 @@
 package student;
 
-import java.util.Scanner; // this imports the Scanner class from the java.util package.
-import java.util.List; // this imports the List class from the java.util package.
+import java.util.Scanner;
+import java.util.List;
 
 /**
- * ClientView is a class that is used to interact with the client.
- *
- * <p>
- * Every function is static, along with keeping the Scanner to system.in static. It is suggested
- * that client interaction goes through this class.
- * </p>
+ * ConsoleView is a class used to handle all input/output from the console.
  */
 public final class ConsoleView {
 
-    // Scanner can read input from clients,strings, or files.
-    // However, when setting the scanner to System.in, you only want to do it once in the
-    // application to
-    // prevent conflicts.
-    /** scanner pointing towards System.in. */
-    private static final Scanner SCANNER = new Scanner(System); // System.in is a standard input
-                                                                // stream, it is used to read
-                                                                // data from the keyboard.
-    /** Stores the locality lists from Greeter to prevent additional copies. */
-    private static final List<String> LOCALITY_OPTIONS = Greeter.getLocalityList(); // get the
-                                                                                    // options from
-                                                                                    // the Greeter
-                                                                                    // class, doing
-                                                                                    // this here, so
-                                                                                    // it is only
-                                                                                    // called once
+    /**
+     * A single, shared Scanner for reading user input.
+     */
+    private static final Scanner SCANNER = new Scanner(System.in);
 
+    /**
+     * Cache a copy of the locality options from Greeter, so we only fetch once.
+     */
+    private static final List<String> LOCALITY_OPTIONS = Greeter.getLocalityList();
+
+    /**
+     * Private constructor to prevent instantiation.
+     */
     private ConsoleView() {
-        // this is a private constructor, it is used to prevent the class from being instantiated.
-        // This is a common practice in classes that are only used for static methods.
+        // No-op
     }
 
     /**
-     * Asks the client for their name.
+     * Prompt the user for their name.
      *
-     * @return the name of the client
+     * @return the entered name
      */
     public static String getName() {
-        // these two combined statements are similar to input("Welcome, what is your name? "), in
-        // python
-        System.out.print("Welcome, what is your name? "); // this is a print statement, notice the
-                                                          // print vs println used below
-        return SCANNER.nextLine().trim(); // this is a method call, it returns the next line of
-                                          // input from the client
+        System.out.print("Welcome, what is your name? ");
+        return SCANNER.nextLine().trim();
     }
 
     /**
-     * Asks the client to select a locality by number. If they select an invalid number, it will
-     * continue to ask them until they select a valid number.
+     * Prompt the user to select a locality by number. If they select an invalid
+     * number, it keeps prompting until they choose a valid one.
      *
-     *
-     * @return the locality selected by the client
+     * @return a valid locality index (1-based)
      */
     public static int getLocality() {
-        System.out.println("Select a locality: ");
+        System.out.println("Select a locality:");
         for (int i = 0; i < LOCALITY_OPTIONS.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + LOCALITY_OPTIONS.get(i));
+            System.out.println("  " + (i + 1) + ". " + LOCALITY_OPTIONS.get(i));
         }
         System.out.print("> ");
         String input = SCANNER.nextLine().trim();
+
         try {
-            int val = Integer.parseInt(input); // converts the input to an integer, similar to
-                                               // int(value) in python, but only goes from strings
-                                               // to integers.
-            if (val > 0 && val <= LOCALITY_OPTIONS.size()) {
-                return val;
-            } else {
-                System.out.println("Invalid input, please try again.");
+            int choice = Integer.parseInt(input);
+            if (choice < 1 || choice > LOCALITY_OPTIONS.size()) {
+                System.out.println("Invalid choice. Please try again.");
                 return getLocality();
             }
+            return choice;
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input, please try again., Numbers only.");
+            System.out.println("Invalid input (numbers only). Please try again.");
             return getLocality();
         }
     }
 
     /**
-     * Asks the client if they would like to be greeted again.
+     * Ask the user if they want to continue being greeted. Acceptable inputs:
+     * "yes"/"y" or "no"/"n". If invalid, it keeps prompting.
      *
-     * They can respond with yes, y, no, or n. If they respond with something else will continue to
-     * call itself until they respond with a valid answer.
-     *
-     * @return true if they want to be greeted again, false if they don't.
+     * @return true if user says yes, false otherwise
      */
     public static boolean checkRunAgain() {
-        System.out.print("Would you like be greeted again (yes/no)? ");
-        String input = SCANNER.nextLine().toLowerCase(); // converts the input to lowercase
+        System.out.print("Would you like to be greeted again (yes/no)? ");
+        String input = SCANNER.nextLine().trim().toLowerCase();
+
         if (input.equals("yes") || input.equals("y")) {
             return true;
-        } else if (input.equals("no") || input.equals("n")) { // || is the 'or' operator in many
-                                                              // languages, && is the 'and' operator
+        } else if (input.equals("no") || input.equals("n")) {
             return false;
         } else {
             System.out.println("Invalid answer, please try again.");
             return checkRunAgain();
         }
-
     }
 
     /**
-     * Currently acts as a pass through to System.out.println.
+     * Prints the greeting text to the console.
      *
-     * This is a good practice to keep all print statements in one place, so that if you need to
-     * change the output, you only need to change it in one place.
-     *
-     * @param greeting the greeting to print
+     * @param greeting the text to be printed
      */
     public static void printGreeting(String greeting) {
         System.out.println(greeting);
