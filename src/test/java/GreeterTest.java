@@ -54,8 +54,8 @@ public class GreeterTest {
 
     @Test
     public void testToString() {
-        assertEquals("{name:\"John\", locality:\"USA\"}", greeter.toString());
-        assertEquals("{name:\"Alice\", locality:\"Italy\"}", greeter4.toString());
+        assertEquals("{name:\"John\", locality:\"Hawaii\"}", greeter.toString());
+        assertEquals("{name:\"Alice\", locality:\"China\"}", greeter4.toString());
     }
 
     @Test
