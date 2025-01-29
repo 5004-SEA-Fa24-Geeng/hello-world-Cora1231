@@ -50,6 +50,7 @@ Write a short paragraph detailing the flow of the program in your own words. Thi
         
 
 7. Go to the [Markdown Playground](MarkdownPlayground.md) and add at least 3 different markdown elements you learned about by reading the markdown resources listed in the document. Additionally you need to add a mermaid class diagram (of your choice does not have to follow the assignment. However, if you did use mermaid for the assignment, you can just copy that there). Add the elements into the markdown file, so that the formatting changes are reserved to that file. 
+
 classDiagram
     AlohaWorld --> ConsoleView : Uses
     ConsoleView --> Greeter : Uses
@@ -97,7 +98,7 @@ These questions require deeper thinking of the topic. We don't expect 100% corre
 ### Why would we want to keep interaction with the client contained to ConsoleView?
    So from my perspective, keeping interaction with the client contained in ConsoleView promotes separation of concerns by isolating user input/output from business logic, improving modularity and maintainability. It follows the Single Responsibility Principle, ensuring that each class focuses on a specific task, making the code easier to understand and modify. This approach enhances testability by allowing easier simulation of user input, and provides flexibility for future changes
 
-- Right now, the application isn't very dynamic in that it can be difficult to add new languages and greetings without modifying the code every time. Just thinking programmatically,  how could you make the application more dynamic? You are free to reference Geeting.java and how that could be used in your design.
+### Right now, the application isn't very dynamic in that it can be difficult to add new languages and greetings without modifying the code every time. Just thinking programmatically,  how could you make the application more dynamic? You are free to reference Geeting.java and how that could be used in your design.
   Maybe we can store the language and the greeting in an external database, which allows we to add or modify languages and greetings without modifying the code.
 
 
